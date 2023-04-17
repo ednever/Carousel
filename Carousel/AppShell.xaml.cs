@@ -1,5 +1,4 @@
-﻿using Carousel.ViewModels;
-using Carousel.Views;
+﻿using Carousel.Views;
 using System;
 using System.Collections.Generic;
 using Xamarin.Forms;
@@ -11,9 +10,6 @@ namespace Carousel
         public AppShell()
         {
             InitializeComponent();
-            Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
-            Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
         }
-
     }
 }

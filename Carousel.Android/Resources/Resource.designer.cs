@@ -14,7 +14,7 @@ namespace Carousel.Droid
 {
 	
 	
-	[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Android.Build.Tasks", "13.1.0.5")]
+	[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Android.Build.Tasks", "13.2.0.93")]
 	public partial class Resource
 	{
 		
@@ -16532,7 +16532,7 @@ namespace Carousel.Droid
 			public const int design_snackbar_background = 2131165283;
 			
 			// aapt resource value: 0x7F07006B
-			public const int icon_about = 2131165291;
+			public const int icon_dictionary = 2131165291;
 			
 			// aapt resource value: 0x7F07006C
 			public const int icon_feed = 2131165292;
@@ -16668,9 +16668,6 @@ namespace Carousel.Droid
 			
 			// aapt resource value: 0x7F070091
 			public const int tooltip_frame_light = 2131165329;
-			
-			// aapt resource value: 0x7F070092
-			public const int xamarin_logo = 2131165330;
 			
 			static Drawable()
 			{
