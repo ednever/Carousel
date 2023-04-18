@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Carousel.Views
 {
@@ -14,6 +16,10 @@ namespace Carousel.Views
         StackLayout st;
         StackLayout st1 = new StackLayout { VerticalOptions = LayoutOptions.Center, HorizontalOptions = LayoutOptions.Center };
 
+        string fileName = "Sonad.txt";
+        //string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.DataDirectory);
+        
+
         public Sonastik()
         {
             st = new StackLayout();
@@ -22,6 +28,7 @@ namespace Carousel.Views
                 Button button = new Button { Text = ButtonsNames[i] };
                 st.Children.Add(button);
                 button.Clicked += Button_Clicked;
+
             }
             st.Children.Add(st1);
             ScrollView scrollView = new ScrollView { Content = st };
@@ -34,6 +41,9 @@ namespace Carousel.Views
             Button btn = (Button)sender;
             if (btn.Text == ButtonsNames[0]) //Просмотр слов
             {
+                Loe_failist();
+
+
 
             }
             else if (btn.Text == ButtonsNames[1]) //Добавление слова
@@ -46,7 +56,7 @@ namespace Carousel.Views
                 };
                 for (int i = 0; i < 2; i++)
                 {
-                    Entry entry = new Entry { WidthRequest = 175, HeightRequest = 25 };
+                    Entry entry = new Entry { WidthRequest = 170, HeightRequest = 25 };
                     st2.Children.Add(entry);
                 }
                 Label label = new Label { Text = " - ", FontSize = 50 };
@@ -69,6 +79,26 @@ namespace Carousel.Views
                 //{
 
                 //}
+            }
+        }
+        void Loe_failist()
+        {
+            if (String.IsNullOrEmpty(fileName)) return;
+            if (fileName != null)
+            {
+                //var currentPath = System.Environment.DataDirectory;
+                //string filePath = Path.GetFullPath(fileName);
+                //String[] Andmed = File.ReadAllLines(filePath); 
+                
+                //String[] Andmed = File.ReadAllLines(Path.Combine(folderPath, fileName));
+                //for (int i = 0; i < Andmed.Length; i++)
+                //{
+                //    var columns = Andmed[i].Split('-');
+                //    Label label = new Label { Text = columns[0] + " - " + columns[1] };
+                //    st.Children.Insert(1 + i, label);
+                //}
+
+                
             }
         }
     }
