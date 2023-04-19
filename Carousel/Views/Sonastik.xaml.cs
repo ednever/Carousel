@@ -13,11 +13,13 @@ namespace Carousel.Views
     public partial class Sonastik : ContentPage
     {
         string[] ButtonsNames = new string[2] { "Sõnad", "Lisa sõna" };
-        StackLayout st;
+        StackLayout st, st2;
         StackLayout st1 = new StackLayout { VerticalOptions = LayoutOptions.Center, HorizontalOptions = LayoutOptions.Center };
+        Entry entry, entry2;  
+        Dictionary<string, string> dictionary = new Dictionary<string, string>();
 
         string fileName = "Sonad.txt";
-        //string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.DataDirectory);
+        string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
         
 
         public Sonastik()
@@ -33,18 +35,17 @@ namespace Carousel.Views
             st.Children.Add(st1);
             ScrollView scrollView = new ScrollView { Content = st };
             Content = scrollView;
+
+
         }
 
         void Button_Clicked(object sender, EventArgs e)
         {
             st1.Children.Clear();
             Button btn = (Button)sender;
-            if (btn.Text == ButtonsNames[0]) //Просмотр слов
+            if (btn.Text == ButtonsNames[0]) //Просмотр, изменение, удаление слов
             {
                 Loe_failist();
-
-
-
             }
             else if (btn.Text == ButtonsNames[1]) //Добавление слова
             {
@@ -54,31 +55,32 @@ namespace Carousel.Views
                     HorizontalOptions = LayoutOptions.Center,
                     VerticalOptions = LayoutOptions.Center
                 };
-                for (int i = 0; i < 2; i++)
-                {
-                    Entry entry = new Entry { WidthRequest = 170, HeightRequest = 25 };
-                    st2.Children.Add(entry);
-                }
+
+                entry = new Entry { WidthRequest = 175, HeightRequest = 25 };
+                st2.Children.Add(entry);
+
                 Label label = new Label { Text = " - ", FontSize = 50 };
-                st2.Children.Insert(1, label);
+                st2.Children.Add(label);
+
+                entry2 = new Entry { WidthRequest = 175, HeightRequest = 25 };
+                st2.Children.Add(entry2);
+               
                 Button button = new Button { Text = "Salvesta" };
                 button.Clicked += Button_Clicked;
                 st1.Children.Add(st2);
                 st1.Children.Add(button);
+
+
                 
             }
             else 
             {
-                
+                dictionary.Add(entry.Text, entry2.Text);
+                if (File.Exists(Path.Combine(folderPath, fileName)))
+                {
+                    File.AppendAllText(Path.Combine(folderPath, fileName), "\n" + entry.Text + " - " + entry2.Text);
+                }
                 st1.Children.Clear();
-                //if (st1.Children[0].)
-                //{
-                //    st1.IsVisible = false;
-                //}
-                //else
-                //{
-
-                //}
             }
         }
         void Loe_failist()
@@ -86,19 +88,15 @@ namespace Carousel.Views
             if (String.IsNullOrEmpty(fileName)) return;
             if (fileName != null)
             {
-                //var currentPath = System.Environment.DataDirectory;
-                //string filePath = Path.GetFullPath(fileName);
-                //String[] Andmed = File.ReadAllLines(filePath); 
-                
-                //String[] Andmed = File.ReadAllLines(Path.Combine(folderPath, fileName));
-                //for (int i = 0; i < Andmed.Length; i++)
-                //{
-                //    var columns = Andmed[i].Split('-');
-                //    Label label = new Label { Text = columns[0] + " - " + columns[1] };
-                //    st.Children.Insert(1 + i, label);
-                //}
+                //File.WriteAllText(Path.Combine(folderPath, fileName), "test - test2");
 
-                
+                String[] Andmed = File.ReadAllLines(Path.Combine(folderPath, fileName));
+                for (int i = 0; i < Andmed.Length; i++)
+                {
+                    var columns = Andmed[i].Split('-');
+                    Label label = new Label { Text = columns[0] + " - " + columns[1] };
+                    st.Children.Insert(1 + i, label);
+                }
             }
         }
     }

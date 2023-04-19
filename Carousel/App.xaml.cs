@@ -10,7 +10,7 @@ namespace Carousel
         public App()
         {
             InitializeComponent();
-            MainPage = new AppShell();
+            MainPage = new NavigationPage(new AppShell());
         }
         protected override void OnStart() {}
         protected override void OnSleep() {}
