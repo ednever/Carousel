@@ -12,45 +12,49 @@ namespace Carousel.Views
 {
     public partial class Mang : CarouselPage
     {
-        StackLayout st;
+        String[] Andmed = File.ReadAllLines(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Sonad.txt"));
+        Dictionary<string,string> dict = new Dictionary<string,string>();
         public Mang()
         {
-            
-            string fileName = "Sonad.txt";
-            string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-
-            String[] Andmed = File.ReadAllLines(Path.Combine(folderPath, fileName));
-
+            Title = "Mäng";
+            BackgroundColor = Color.White;
+            TapGestureRecognizer tap = new TapGestureRecognizer();
+            tap.Tapped += Tap_Tapped;
             for (int i = 0; i < Andmed.Length; i++)
             {
-                var columns = Andmed[i].Split('-');
-                st = new StackLayout 
+                string[] columns = Andmed[i].Split('-');
+                dict.Add(columns[0], columns[1]);
+                Label label = new Label
                 {
-                    Children = 
-                    {
-                        new Label
-                        {
-                            Text = columns[0] + " - " + columns[1],
-                            VerticalOptions = LayoutOptions.Center,
-                            HorizontalOptions = LayoutOptions.Center,
-                            FontSize = 40
-                        },
-                    }
+                    Text = columns[0],
+                    VerticalOptions = LayoutOptions.Center,
+                    HorizontalOptions = LayoutOptions.Center,
+                    FontSize = 40
                 };
-                var contentPage = new ContentPage
+                label.GestureRecognizers.Add(tap);
+                Frame frame = new Frame
                 {
-                    Content = st
+                    BorderColor = Color.Black,
+                    CornerRadius = 5,
+                    Content = label,
                 };               
+                StackLayout st = new StackLayout { Children = {frame}, VerticalOptions = LayoutOptions.Center, HorizontalOptions = LayoutOptions.Center };
+                ContentPage contentPage = new ContentPage { Content = st };               
                 Children.Add(contentPage);
             }
-            this.BindingContextChanged += Mang_BindingContextChanged;
-            
-
         }
-
-        void Mang_BindingContextChanged(object sender, EventArgs e)
+        void Tap_Tapped(object sender, EventArgs e)
         {
-            st.Children.Clear();
+            Label lbl = (Label)sender;
+            if (dict.ContainsKey(lbl.Text))
+            {
+                lbl.Text = dict[lbl.Text];
+            }
+            else 
+            {
+                lbl.Text = dict.FirstOrDefault(x => x.Value == lbl.Text).Key;
+            }
+            
         }
     }
 }
