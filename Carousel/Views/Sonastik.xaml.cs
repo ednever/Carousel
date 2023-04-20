@@ -18,8 +18,7 @@ namespace Carousel.Views
         StackLayout st;
         StackLayout st1 = new StackLayout { VerticalOptions = LayoutOptions.Center, HorizontalOptions = LayoutOptions.Center };
         StackLayout stUp = new StackLayout { VerticalOptions = LayoutOptions.Center, HorizontalOptions = LayoutOptions.Center };
-        Entry entry, entry2;
-        TapGestureRecognizer tap = new TapGestureRecognizer();      
+        Entry entry, entry2;   
 
         string fileName = "Sonad.txt";
         string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);     
@@ -27,8 +26,6 @@ namespace Carousel.Views
         {
             Title = "Sõnastik";
             //File.WriteAllText(Path.Combine(folderPath, fileName), "eesti - english"); //при запуске в первый раз
-
-            tap.Tapped += Tap_Tapped;
 
             st = new StackLayout();
             for (int i = 0; i < ButtonsNames.Length; i++)
@@ -61,10 +58,6 @@ namespace Carousel.Views
                     String[] Andmed = File.ReadAllLines(Path.Combine(folderPath, fileName));
                     for (int i = 0; i < Andmed.Length; i++)
                     {
-                        Label label2 = new Label { Text = "X" };
-                        label2.GestureRecognizers.Add(tap);
-                        stUp.Children.Add(label2);
-
                         var columns = Andmed[i].Split('-');
                         Label label = new Label { Text = columns[0] + " - " + columns[1] };
                         stUp.Children.Add(label);
